@@ -22,6 +22,9 @@ import { LoginComponent } from './login/login.component';
 import { AddSnippetComponent } from './add-snippet/add-snippet.component';
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatCardModule} from "@angular/material/card";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import {MatCardModule} from "@angular/material/card";
     MatSlideToggleModule,
     MatGridListModule,
     MatTooltipModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]
