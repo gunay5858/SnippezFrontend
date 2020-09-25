@@ -1,0 +1,6 @@
+<mat-selection-list #shoes [multiple]="false">
+  <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
+    <h2 matLine>{{shoe}}</h2>
+    <h6 matLine>{{shoe}}</h6>
+  </mat-list-option>
+</mat-selection-list>

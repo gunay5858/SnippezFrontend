@@ -1,11 +1,12 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
     <h1 class="brand">Snippez</h1>
     <div>
-      <a mat-button [routerLink]="'/accounts'">
+      <a mat-button [routerLink]="'/dashboard'" matTooltip="Dashboard">
+        <mat-icon aria-hidden="false" aria-label="Go to dashboard" fontSet="material-icons-outlined">dashboard
+        </mat-icon>
+      </a>
+      <a mat-button [routerLink]="'/snippet/new'">
         <mat-icon aria-hidden="false" aria-label="Add Code snippet">add_circle_outline</mat-icon>
         Neu
       </a>
@@ -16,11 +17,11 @@
       </mat-icon>
     </mat-slide-toggle>
     <div>
-      <a mat-button [routerLink]="'/accounts'">
+      <a mat-button [routerLink]="'/login'">
         <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
         Anmelden
       </a>
-      <a mat-button [routerLink]="'/create-account'">
+      <a mat-button [routerLink]="'/register'">
         <mat-icon aria-hidden="false" aria-label="create new account" fontSet="material-icons-outlined">person_add
         </mat-icon>
         Registrieren

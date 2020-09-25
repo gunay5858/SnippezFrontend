@@ -12,11 +12,28 @@ import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import { NavbarComponent } from './navbar/navbar.component';
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import {MatGridListModule} from "@angular/material/grid-list";
+import { CategoryListComponent } from './category-list/category-list.component';
+import { SnippetListComponent } from './snippet-list/snippet-list.component';
+import { ShowSnippetComponent } from './show-snippet/show-snippet.component';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
+import { AddSnippetComponent } from './add-snippet/add-snippet.component';
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    CategoryListComponent,
+    SnippetListComponent,
+    ShowSnippetComponent,
+    HomeComponent,
+    RegisterComponent,
+    LoginComponent,
+    AddSnippetComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +45,10 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatGridListModule,
+    MatTooltipModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
