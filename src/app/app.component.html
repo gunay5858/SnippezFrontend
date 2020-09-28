@@ -1,3 +1,8 @@
 <app-navbar></app-navbar>
 
-<router-outlet></router-outlet>
+<!--<div style="padding: 16px;">-->
+  <router-outlet></router-outlet>
+<!--</div>-->
+<a mat-fab color="primary" class="fabBtn" routerLink="/snippet/new" matTooltip="Neues Snippet" matTooltipPosition="left" aria-label="New Snippet">
+  <mat-icon>note_add</mat-icon>
+</a>
