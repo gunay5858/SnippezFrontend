@@ -27,6 +27,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatMenuModule} from '@angular/material/menu';
+import {FormsModule} from "@angular/forms";
+import {AngularEditorModule} from "@kolkov/angular-editor";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -58,7 +61,10 @@ import {MatMenuModule} from '@angular/material/menu';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatMenuModule
+    MatMenuModule,
+    FormsModule,
+    AngularEditorModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
