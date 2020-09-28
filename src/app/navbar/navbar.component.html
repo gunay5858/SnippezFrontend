@@ -6,26 +6,28 @@
         <mat-icon aria-hidden="false" aria-label="Go to dashboard" fontSet="material-icons-outlined">dashboard
         </mat-icon>
       </a>
-<!--      <a mat-button [routerLink]="'/snippet/new'">-->
-<!--        <mat-icon aria-hidden="false" aria-label="Add Code snippet">add_circle_outline</mat-icon>-->
-<!--        Neu-->
-<!--      </a>-->
     </div>
     <span class="navbar-spacer"></span>
-    <mat-slide-toggle [checked]="lightThemeIsActive">
+    <mat-slide-toggle labelPosition="before" matTooltip="Light Mode" [checked]="lightThemeIsActive">
       <mat-icon aria-hidden="false" aria-label="toggle theme" fontSet="material-icons-outlined">wb_sunny
       </mat-icon>
     </mat-slide-toggle>
+
+    <!--  RIGHT MENU  -->
     <div>
-      <a mat-button [routerLink]="'/login'">
-        <mat-icon aria-hidden="false" aria-label="login">login</mat-icon>
-        Anmelden
-      </a>
-      <a mat-button [routerLink]="'/register'">
-        <mat-icon aria-hidden="false" aria-label="create new account" fontSet="material-icons-outlined">person_add
-        </mat-icon>
-        Registrieren
-      </a>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a [routerLink]="'/register'" mat-menu-item>
+          <mat-icon fontSet="material-icons-outlined">person_add</mat-icon>
+          <span>Registrieren</span>
+        </a>
+        <a [routerLink]="'/register'" mat-menu-item>
+          <mat-icon>login</mat-icon>
+          <span>Anmelden</span>
+        </a>
+      </mat-menu>
     </div>
 
 

@@ -26,6 +26,7 @@ import {MatChipsModule} from "@angular/material/chips";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatChipsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
