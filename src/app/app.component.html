@@ -1,8 +1,17 @@
 <app-navbar></app-navbar>
+<i style="font-size: 50px" class="devicon-backbonejs-plain colored"></i>
 
-<!--<div style="padding: 16px;">-->
-  <router-outlet></router-outlet>
-<!--</div>-->
-<a mat-fab color="primary" class="fabBtn" routerLink="/snippet/new" matTooltip="Neues Snippet" matTooltipPosition="left" aria-label="New Snippet">
+<router-outlet></router-outlet>
+
+<button mat-fab color="accent" class="secondary-fabBtn" (click)="openNewCategoryDialog()" matTooltip="Neue Kategorie"
+        matTooltipPosition="left"
+        aria-label="New Category">
+  <mat-icon>create_new_folder</mat-icon>
+</button>
+
+<a mat-fab color="primary" class="fabBtn" routerLink="/snippet/new" matTooltip="Neues Snippet" matTooltipPosition="left"
+   aria-label="New Snippet">
   <mat-icon>note_add</mat-icon>
 </a>
+
+<!--ADD CATEGORY DIALOG-->

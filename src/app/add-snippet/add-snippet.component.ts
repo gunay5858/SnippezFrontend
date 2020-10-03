@@ -4,6 +4,10 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import 'prismjs/components/prism-csharp';
 import 'prismjs/components/prism-css';
 import {AngularEditorConfig} from "@kolkov/angular-editor";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Category} from "../models/category";
+import {Snippet} from "../models/snippet";
+import {User} from "../models/user";
 
 declare var Prism: any;
 
@@ -13,115 +17,53 @@ declare var Prism: any;
   styleUrls: ['./add-snippet.component.scss']
 })
 export class AddSnippetComponent implements OnInit {
+  selectedCategory: Category = null;
+  categories: Category[] = [];
+  sharedUsers: string[] = [];
+  currentSnippet: Snippet = new Snippet();
+
   selectable = true;
   removable = true;
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruits: string[] = ["test", "test2"];
-  @ViewChild("txt") txtCode: ElementRef;
+  tags: string[] = [];
   panelOpenState = false;
 
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
 
-  public code = 'using System;\n' +
-    '\n' +
-    'namespace HelloWorld\n' +
-    '{\n' +
-    '  class Program\n' +
-    '  {\n' +
-    '    static void Main(string[] args)\n' +
-    '    {\n' +
-    '      Console.WriteLine("Hello World!");    \n' +
-    '    }\n' +
-    '  }\n' +
-    '}';
+  public code = '';
   languageIdentifier: string = 'cs';
-  codeConfig: AngularEditorConfig = {
-    editable: true,
-    spellcheck: true,
-    height: 'auto',
-    minHeight: '0',
-    maxHeight: 'auto',
-    width: 'auto',
-    minWidth: '0',
-    translate: 'yes',
-    enableToolbar: true,
-    showToolbar: false,
-    placeholder: 'Code',
-    defaultParagraphSeparator: '',
-    defaultFontName: '',
-    defaultFontSize: '',
-    fonts: [
-      {class: 'arial', name: 'Arial'},
-      {class: 'times-new-roman', name: 'Times New Roman'},
-      {class: 'calibri', name: 'Calibri'},
-      {class: 'comic-sans-ms', name: 'Comic Sans MS'}
-    ],
-    customClasses: [
-      {
-        name: 'quote',
-        class: 'quote',
-      },
-      {
-        name: 'redText',
-        class: 'redText'
-      },
-      {
-        name: 'titleText',
-        class: 'titleText',
-        tag: 'h1',
-      },
-    ],
-    uploadUrl: 'v1/image',
-    uploadWithCredentials: false,
-    sanitize: false,
-    toolbarPosition: 'top',
-    toolbarHiddenButtons: [
-      [
-        'undo',
-        'redo',
-        'bold',
-        'italic',
-        'underline',
-        'strikeThrough',
-        'subscript',
-        'superscript',
-        'justifyLeft',
-        'justifyCenter',
-        'justifyRight',
-        'justifyFull',
-        'indent',
-        'outdent',
-        'insertUnorderedList',
-        'insertOrderedList',
-        'heading',
-        'fontName'
-      ],
-      [
-        'fontSize',
-        'textColor',
-        'backgroundColor',
-        'customClasses',
-        'link',
-        'unlink',
-        'insertImage',
-        'insertVideo',
-        'insertHorizontalRule',
-        'removeFormat',
-        'toggleEditorMode'
-      ]
-    ]
-  };
 
-  constructor() {
+
+  constructor(private _formBuilder: FormBuilder) {
+    this.firstFormGroup = this._formBuilder.group({
+      title: [this.currentSnippet.title, [Validators.required, Validators.minLength(3)]],
+      category: [this.currentSnippet.category],
+      description: [this.currentSnippet.description],
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      code: [this.currentSnippet.code, [Validators.required, Validators.minLength(3)]]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      tags: [null],
+      sharedUsers: [null],
+      is_public: [false, Validators.required]
+    });
   }
 
-  add(event: MatChipInputEvent): void {
+  addChip(event: MatChipInputEvent, type: string): void {
     const input = event.input;
     const value = event.value;
 
     // Add our fruit
     if ((value || '').trim()) {
-      this.fruits.push(value.trim());
+      if (type === 'tag') {
+        this.tags.push(value.trim());
+      } else {
+        this.sharedUsers.push(value.trim())
+      }
     }
 
     // Reset the input value
@@ -130,11 +72,19 @@ export class AddSnippetComponent implements OnInit {
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  removeChip(tag: string, type: string): void {
+    let index;
 
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
+    if (type === 'tag') {
+      index = this.tags.indexOf(tag);
+      if (index >= 0) {
+        this.tags.splice(index, 1);
+      }
+    } else {
+      index = this.sharedUsers.indexOf(tag);
+      if (index >= 0) {
+        this.tags.splice(index, 1);
+      }
     }
   }
 
@@ -148,4 +98,15 @@ export class AddSnippetComponent implements OnInit {
     console.log(this.code)
   }
 
+  addSnippetData(value: any, save: boolean) {
+    Object.assign(this.currentSnippet, value);
+    console.log(value);
+
+    if (save === true) {
+      this.currentSnippet.tags = this.tags.toString();
+      this.currentSnippet.shared_users = this.sharedUsers;
+      // todo: save data to db
+    }
+    console.log(this.currentSnippet);
+  }
 }

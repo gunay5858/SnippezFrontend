@@ -27,9 +27,12 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatMenuModule} from '@angular/material/menu';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {AngularEditorModule} from "@kolkov/angular-editor";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDialogModule} from "@angular/material/dialog";
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     HomeComponent,
     RegisterComponent,
     LoginComponent,
-    AddSnippetComponent
+    AddSnippetComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -64,9 +68,15 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatMenuModule,
     FormsModule,
     AngularEditorModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatStepperModule,
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    AddCategoryComponent
+  ]
 })
 export class AppModule { }
