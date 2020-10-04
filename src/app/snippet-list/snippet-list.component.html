@@ -1,6 +1,5 @@
 <mat-selection-list #shoes [multiple]="false">
-  <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">
-    <h2 matLine>{{shoe}}</h2>
-    <h6 matLine>{{shoe}}</h6>
-  </mat-list-option>
+  <ng-container *ngFor="let snippet of codeSnippets; let i = index">
+    <app-snippet-list-item [selected]="i == 0" [codeSnippet]="snippet"></app-snippet-list-item>
+  </ng-container>
 </mat-selection-list>

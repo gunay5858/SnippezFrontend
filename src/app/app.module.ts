@@ -33,6 +33,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { SnippetListItemComponent } from './snippet-list/snippet-list-item/snippet-list-item.component';
+import {MatBadgeModule} from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { AddCategoryComponent } from './add-category/add-category.component';
     RegisterComponent,
     LoginComponent,
     AddSnippetComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    SnippetListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { AddCategoryComponent } from './add-category/add-category.component';
     MatExpansionModule,
     MatStepperModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent],

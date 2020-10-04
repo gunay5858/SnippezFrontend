@@ -1,6 +1,6 @@
 <mat-selection-list #cats [multiple]="false">
   <ng-container *ngFor="let category of categories; let i = index">
-    <mat-list-option [value]="category" [selected]="i === 0">
+    <mat-list-option (click)="loadCodeSnippets(category.id)" [value]="category" [selected]="i === 0">
       <h2 matLine><i class="{{category?.icon || 'icon-shell'}}"></i> {{category?.name}}</h2>
       <h6 matLine><span style="margin-left: 20px"></span> Snippets: {{category?.snippetCount}}</h6>
     </mat-list-option>
