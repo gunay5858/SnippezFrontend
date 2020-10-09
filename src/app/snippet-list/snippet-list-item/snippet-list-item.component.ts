@@ -1,6 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {CodeSnippetService} from "../../_services/code-snippet.service";
-import {Subscription} from "rxjs";
+import {Component, Input, EventEmitter, OnInit, Output} from '@angular/core';
 import {Snippet} from "../../models/snippet";
 
 @Component({
@@ -11,6 +9,7 @@ import {Snippet} from "../../models/snippet";
 export class SnippetListItemComponent implements OnInit {
   @Input() public codeSnippet: Snippet;
   @Input() public selected: boolean;
+  @Output() public selectedSnippet: EventEmitter<Snippet> = new EventEmitter();
 
   constructor() {
   }
@@ -19,4 +18,7 @@ export class SnippetListItemComponent implements OnInit {
 
   }
 
+  returnCodeSnippet(codeSnippet: Snippet) {
+    this.selectedSnippet.emit(codeSnippet);
+  }
 }

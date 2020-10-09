@@ -1,0 +1,11 @@
+@import "~src/constants";
+
+h2 {
+  font-size: $h2-font-size;
+
+  mat-icon {
+    color: $color-success;
+    vertical-align: middle;
+    line-height: 20px;
+  }
+}

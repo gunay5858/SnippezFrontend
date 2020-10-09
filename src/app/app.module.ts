@@ -35,6 +35,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { SnippetListItemComponent } from './snippet-list/snippet-list-item/snippet-list-item.component';
 import {MatBadgeModule} from "@angular/material/badge";
+import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
 
 @NgModule({
   declarations: [
@@ -75,9 +76,15 @@ import {MatBadgeModule} from "@angular/material/badge";
     MatStepperModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatBadgeModule
+    MatBadgeModule,
+    HighlightModule
   ],
-  providers: [],
+  providers: [{
+    provide: HIGHLIGHT_OPTIONS,
+    useValue: {
+      fullLibraryLoader: () => import('highlight.js'),
+    }
+  }],
   bootstrap: [AppComponent],
   entryComponents: [
     AddCategoryComponent

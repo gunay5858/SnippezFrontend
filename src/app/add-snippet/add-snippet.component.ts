@@ -1,15 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-import 'prismjs/components/prism-csharp';
-import 'prismjs/components/prism-css';
-import {AngularEditorConfig} from "@kolkov/angular-editor";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Category} from "../models/category";
 import {Snippet} from "../models/snippet";
-import {User} from "../models/user";
-
-declare var Prism: any;
 
 @Component({
   selector: 'app-add-snippet',
@@ -93,8 +87,9 @@ export class AddSnippetComponent implements OnInit {
   }
 
   formatCode(code: string) {
-    this.code = Prism.highlight(code, Prism.languages[this.languageIdentifier]);
+    //TODO: highlight code
     // this.txtCode.nativeElement.value = code;
+    this.code = code
     console.log(this.code)
   }
 

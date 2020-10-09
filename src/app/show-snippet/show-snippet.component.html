@@ -1,5 +1,5 @@
 <h2>
-  Snippet Title
+  {{currentCodeSnippet?.title}}
   <span class="float-right">
     <button mat-button matTooltip="Bearbeiten">
        <mat-icon aria-hidden="false" aria-label="toggle theme"
@@ -14,43 +14,46 @@
   </span>
 </h2>
 
-<h5 class="text-muted">Category | 1.1.1970</h5>
+<h5 class="text-muted"><i
+  class="{{currentCodeSnippet?.category?.icon || 'icon-shell'}}"></i> {{currentCodeSnippet?.category?.name || 'Uncategorized'}}
+  | {{currentCodeSnippet?.createdAt | date: 'dd.MM.yyyy'}}</h5>
 
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+<div [innerHTML]="currentCodeSnippet?.description"></div>
 
-
-<pre class="code" [innerHtml]="code"></pre>
+<pre *ngIf="currentCodeSnippet?.code">
+  <code [highlight]="currentCodeSnippet?.code"></code>
+</pre>
 
 <mat-divider></mat-divider>
 <h2>Settings</h2>
 
 <mat-form-field class="tags-field">
-  <mat-chip-list #chipList aria-label="Fruit selection">
-    <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
-              [removable]="removable" (removed)="remove(fruit)">
-      {{fruit}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+  <mat-chip-list #chipListTags aria-label="Fruit selection">
+    <mat-chip *ngFor="let tag of tags" [selectable]="chipSelectable"
+              [removable]="chipRemovable" (removed)="removeChip(tag, 'tag')">
+      {{tag}}
+      <mat-icon matChipRemove *ngIf="chipRemovable">cancel</mat-icon>
     </mat-chip>
     <input placeholder="Neuer Tag..."
-           [matChipInputFor]="chipList"
+           [matChipInputFor]="chipListTags"
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-           [matChipInputAddOnBlur]="addOnBlur"
-           (matChipInputTokenEnd)="add($event)">
+           [matChipInputAddOnBlur]="chipAddOnBlur"
+           (matChipInputTokenEnd)="addChip($event, 'tag')">
   </mat-chip-list>
 </mat-form-field>
 
-<mat-slide-toggle>Teilen</mat-slide-toggle>
+<mat-slide-toggle [checked]="currentCodeSnippet?.public">Teilen</mat-slide-toggle>
 <mat-form-field class="tags-field">
-  <mat-chip-list #chipList aria-label="Fruit selection">
-    <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
-              [removable]="removable" (removed)="remove(fruit)">
-      {{fruit}}
-      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+  <mat-chip-list #chipListSharedUsers aria-label="Fruit selection">
+    <mat-chip *ngFor="let user of sharedUsers" [selectable]="chipSelectable"
+              [removable]="chipRemovable" (removed)="removeChip(user, 'user')">
+      {{user}}
+      <mat-icon matChipRemove *ngIf="chipRemovable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="Neuer Tag..."
-           [matChipInputFor]="chipList"
+    <input placeholder="Auf Benutzer begrenzen..."
+           [matChipInputFor]="chipListSharedUsers"
            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-           [matChipInputAddOnBlur]="addOnBlur"
-           (matChipInputTokenEnd)="add($event)">
+           [matChipInputAddOnBlur]="chipAddOnBlur"
+           (matChipInputTokenEnd)="addChip($event, 'user')">
   </mat-chip-list>
 </mat-form-field>

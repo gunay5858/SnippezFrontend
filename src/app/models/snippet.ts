@@ -7,10 +7,11 @@ export class Snippet {
   description: string;
   tags: string;
   code: string;
+  codeLanguage: string;
   shared_users: string[];
-  is_public: boolean;
+  public: boolean;
   category: Category;
   creator: User;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }

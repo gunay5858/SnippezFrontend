@@ -9,7 +9,6 @@ import {Snippet} from "../models/snippet";
   styleUrls: ['./snippet-list.component.scss']
 })
 export class SnippetListComponent implements OnInit, OnDestroy {
-  typesOfShoes: string[] = ['Boots', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers', 'Clogs', 'Loafers', 'Moccasins', 'Sneakers'];
   subRefreshCodeSnippets: Subscription = new Subscription();
   subLoadCodeSnippets: Subscription = new Subscription();
   public codeSnippets: Snippet[] = [];
@@ -26,6 +25,11 @@ export class SnippetListComponent implements OnInit, OnDestroy {
   public getCodeSnippetsOfCategory(categoryId: number) {
     this.subLoadCodeSnippets = this.codeSnippetService.getCodeSnippetsOfCategory(categoryId).subscribe((codeSnippets: Snippet[]) => {
       this.codeSnippets = codeSnippets;
+
+      // set first as selected if exists
+      if (this.codeSnippets.length > 0) {
+        this.showCodeSnippet(this.codeSnippets[0]);
+      }
     })
   }
 
@@ -34,4 +38,7 @@ export class SnippetListComponent implements OnInit, OnDestroy {
     this.subLoadCodeSnippets.unsubscribe();
   }
 
+  showCodeSnippet($event: Snippet) {
+    this.codeSnippetService.setCurrentCodeSnippet($event);
+  }
 }

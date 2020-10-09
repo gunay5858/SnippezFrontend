@@ -1,41 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import 'prismjs';
-import 'prismjs/components/prism-csharp';
-import 'prismjs/components/prism-css';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
-
-declare var Prism: any;
+import {CodeSnippetService} from "../_services/code-snippet.service";
+import {Subscription} from "rxjs";
+import {Snippet} from "../models/snippet";
 
 @Component({
   selector: 'app-show-snippet',
   templateUrl: './show-snippet.component.html',
   styleUrls: ['./show-snippet.component.scss']
 })
-export class ShowSnippetComponent implements OnInit {
-  public code = 'using System; using System.Collections.Generic; using System.Linq; using System.Text; using System.Threading.Tasks; namespace ConsoleApp1 { class Program { static void Main(string[] args) { } } }';
-    languageIdentifier: string = 'cs';
+export class ShowSnippetComponent implements OnInit, OnDestroy {
+  chipSelectable = true;
+  chipRemovable = true;
+  chipAddOnBlur = true;
 
-  visible = true;
-  selectable = true;
-  removable = true;
-  addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruits: string[] = ["test", "test2"];
+  tags: string[] = [];
+  sharedUsers: string[] = [];
 
-  constructor() { }
+  public currentCodeSnippet: Snippet;
+  private subCurrentCodeSnippet: Subscription = new Subscription();
 
-  ngOnInit(): void {
-    this.code = Prism.highlight(this.code, Prism.languages[this.languageIdentifier]);
+  constructor(private codeSnippetService: CodeSnippetService) {
   }
 
-  add(event: MatChipInputEvent): void {
+  ngOnInit(): void {
+    this.subCurrentCodeSnippet = this.codeSnippetService.observeCurrentCodeSnippet().subscribe((codeSnippet: Snippet) => {
+      this.currentCodeSnippet = codeSnippet;
+      this.tags = this.currentCodeSnippet.tags.split(',');
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subCurrentCodeSnippet.unsubscribe();
+  }
+
+  addChip(event: MatChipInputEvent, type: string): void {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
-    if ((value || '').trim()) {
-      this.fruits.push(value.trim());
+    if (type === 'tag') {
+      if ((value || '').trim()) {
+        this.tags.push(value.trim());
+      }
+    } else {
+      if ((value || '').trim()) {
+        this.sharedUsers.push(value.trim());
+      }
     }
 
     // Reset the input value
@@ -44,11 +57,20 @@ export class ShowSnippetComponent implements OnInit {
     }
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  removeChip(chip: string, type: string): void {
+    let index;
+    if (type === 'tag') {
+      index = this.tags.indexOf(chip);
 
-    if (index >= 0) {
-      this.fruits.splice(index, 1);
+      if (index >= 0) {
+        this.tags.splice(index, 1);
+      }
+    } else {
+      index = this.sharedUsers.indexOf(chip);
+
+      if (index >= 0) {
+        this.sharedUsers.splice(index, 1);
+      }
     }
   }
 

@@ -1,9 +1,7 @@
-<mat-list-option [value]="codeSnippet" [selected]="selected">
+<mat-list-option [value]="codeSnippet" [selected]="selected" (click)="returnCodeSnippet(codeSnippet)">
   <h2 matLine>
     {{codeSnippet?.title}}
-    <mat-chip *ngIf="codeSnippet?.is_public === true || codeSnippet?.shared_users?.length > 0" color="primary" disabled
-              [selectable]="false" selected>Public
-    </mat-chip>
+    <mat-icon *ngIf="codeSnippet?.public === true">share</mat-icon>
   </h2>
   <h6 matLine class="text-muted">{{codeSnippet?.description}}</h6>
 </mat-list-option>

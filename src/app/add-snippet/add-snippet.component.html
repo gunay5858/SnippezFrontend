@@ -38,7 +38,7 @@
       <form [formGroup]="secondFormGroup">
         <mat-form-field appearance="fill">
           <mat-label>Code</mat-label>
-          <textarea formControlName="code" (change)="formatCode(txt.value)" #txt rows="20" matInput></textarea>
+          <textarea formControlName="code" (keyup)="formatCode(txt.value)" #txt rows="20" matInput></textarea>
         </mat-form-field>
 
         <mat-accordion>
@@ -49,7 +49,7 @@
                 Vorschau
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <pre [innerHTML]="code"></pre>
+            <pre><code [highlight]="code"></code></pre>
           </mat-expansion-panel>
         </mat-accordion>
 
