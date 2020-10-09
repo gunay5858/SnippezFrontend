@@ -3,5 +3,5 @@
     {{codeSnippet?.title}}
     <mat-icon matTooltip="Freigegeben" matTooltipPosition="right" *ngIf="codeSnippet?.public === true">share</mat-icon>
   </h2>
-  <h6 matLine class="text-muted">{{codeSnippet?.description}}</h6>
+  <h6 matLine class="text-muted">{{getCodeLanguage(codeSnippet?.codeLanguage)}} | {{codeSnippet?.description}}</h6>
 </mat-list-option>
