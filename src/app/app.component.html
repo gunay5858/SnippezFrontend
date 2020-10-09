@@ -5,12 +5,12 @@
 
 <button mat-fab color="accent" class="secondary-fabBtn" (click)="openNewCategoryDialog()" matTooltip="Neue Kategorie"
         matTooltipPosition="left"
-        aria-label="New Category">
+        aria-label="New Category" [disabled]="newCategoryFBDisabled">
   <mat-icon>create_new_folder</mat-icon>
 </button>
 
 <a mat-fab color="primary" class="fabBtn" routerLink="/snippet/new" matTooltip="Neues Snippet" matTooltipPosition="left"
-   aria-label="New Snippet">
+   aria-label="New Snippet" [disabled]="newCategoryFBDisabled">
   <mat-icon>note_add</mat-icon>
 </a>
 

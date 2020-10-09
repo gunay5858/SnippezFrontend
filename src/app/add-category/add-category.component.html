@@ -7,7 +7,7 @@
   </mat-form-field>
 
   <mat-accordion>
-    <mat-expansion-panel [expanded]="true">
+    <mat-expansion-panel [expanded]="iconsExpanded" (opened)="iconsExpanded = true" (closed)="iconsExpanded = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Icon

@@ -1,5 +1,6 @@
 <mat-selection-list #shoes [multiple]="false">
   <ng-container *ngFor="let snippet of codeSnippets; let i = index">
-    <app-snippet-list-item (selectedSnippet)="showCodeSnippet($event)" [selected]="i == 0" [codeSnippet]="snippet"></app-snippet-list-item>
+    <app-snippet-list-item (selectedSnippet)="showCodeSnippet($event)" [selected]="i == 0"
+                           [codeSnippet]="snippet"></app-snippet-list-item>
   </ng-container>
 </mat-selection-list>

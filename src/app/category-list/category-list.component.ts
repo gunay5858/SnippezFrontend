@@ -10,13 +10,16 @@ import {CodeSnippetService} from "../_services/code-snippet.service";
   styleUrls: ['./category-list.component.scss']
 })
 export class CategoryListComponent implements OnInit, OnDestroy {
-  categories: Category[] = [];
-  subFindCategories: Subscription = new Subscription();
+  public categories: Category[] = [];
+  private subFindCategories: Subscription = new Subscription();
 
   constructor(private categoryService: CategoryService, private codeSnippetService: CodeSnippetService) {
   }
 
-  public getCategories() {
+  /**
+   * Load category list from API
+   */
+  public loadCategories() {
     this.subFindCategories = this.categoryService.getUsersCategories().subscribe((categories: Category[]) => {
       this.categories = categories
 
@@ -25,18 +28,23 @@ export class CategoryListComponent implements OnInit, OnDestroy {
         this.codeSnippetService.setCodeSnippetCategoryId(this.categories[0].id)
       }
     }, error => {
+      // TODO: deliver error message
       console.log(error)
     });
   }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.loadCategories();
   }
 
   ngOnDestroy(): void {
     this.subFindCategories.unsubscribe();
   }
 
+  /**
+   * Load the Code Snippets of a category by category Id
+   * @param id of the category (0 means without category)
+   */
   loadCodeSnippets(id: number) {
     if (!id) {
       id = 0;

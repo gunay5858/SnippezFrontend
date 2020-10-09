@@ -16,10 +16,16 @@ export class CategoryService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * returns all available devIcons
+   */
   public getAllDevIcons() {
     return this.devIcons;
   }
 
+  /**
+   * returns all available further icons from lineAwesome
+   */
   public getAllLineAwesomeIcons() {
     return this.lineAwesomeIcons;
   }

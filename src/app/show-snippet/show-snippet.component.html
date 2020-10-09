@@ -16,7 +16,8 @@
 
 <h5 class="text-muted"><i
   class="{{currentCodeSnippet?.category?.icon || 'icon-shell'}}"></i> {{currentCodeSnippet?.category?.name || 'Uncategorized'}}
-  | {{currentCodeSnippet?.createdAt | date: 'dd.MM.yyyy'}}</h5>
+  | {{currentCodeSnippet?.createdAt | date: 'dd.MM.yyyy'}}
+</h5>
 
 <div [innerHTML]="currentCodeSnippet?.description"></div>
 

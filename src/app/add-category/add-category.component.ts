@@ -8,18 +8,20 @@ import {CategoryService} from "../_services/category.service";
   styleUrls: ['./add-category.component.scss']
 })
 export class AddCategoryComponent implements OnInit {
-  fgNewCategory: FormGroup;
-  availableDevIcons: string[] = [];
-  availableLineAwesomeIcons: string[] = [];
-  currentIcon: string = 'las la-folder-open';
-  iconsExpanded: boolean = false;
+  public fgNewCategory: FormGroup;
+  public availableDevIcons: string[] = [];
+  public availableLineAwesomeIcons: string[] = [];
+  public currentIcon: string = 'las la-folder-open';
+  public iconsExpanded: boolean = true;
 
   constructor(private categoryService: CategoryService, private _formBuilder: FormBuilder) {
+    // form validation
     this.fgNewCategory = this._formBuilder.group({
       name: [null, [Validators.required, Validators.minLength(3)]],
-      icon: ['icon-shell', [Validators.required]],
+      icon: [this.currentIcon, [Validators.required]],
     });
 
+    // load all selectable icons
     this.availableDevIcons = this.categoryService.getAllDevIcons();
     this.availableLineAwesomeIcons = this.categoryService.getAllLineAwesomeIcons();
   }
@@ -27,6 +29,10 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * sert the categoy's icon
+   * @param icon to set
+   */
   setCurrentIcon(icon: string) {
     this.currentIcon = icon;
     this.fgNewCategory.patchValue({icon: icon});

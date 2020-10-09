@@ -19,10 +19,18 @@ export class SnippetListItemComponent implements OnInit {
 
   }
 
+  /**
+   * Emits current selected Code snippet to component who calls this component
+   * @param codeSnippet
+   */
   returnCodeSnippet(codeSnippet: Snippet) {
     this.selectedSnippet.emit(codeSnippet);
   }
 
+  /**
+   * get the code language
+   * @param codeLanguage
+   */
   getCodeLanguage(codeLanguage: string) {
     return this.codeSnippetService.getCodeLanguageByShortcut(codeLanguage).name;
   }

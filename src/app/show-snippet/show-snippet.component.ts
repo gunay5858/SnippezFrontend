@@ -12,16 +12,18 @@ import {Snippet} from "../models/snippet";
   styleUrls: ['./show-snippet.component.scss']
 })
 export class ShowSnippetComponent implements OnInit, OnDestroy {
+  // chip list config
   chipSelectable = true;
   chipRemovable = true;
   chipAddOnBlur = true;
 
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  tags: string[] = [];
-  sharedUsers: string[] = [];
-
+  // current code snippet attributes
+  public tags: string[] = [];
+  public sharedUsers: string[] = [];
   public currentCodeSnippet: Snippet;
+
   private subCurrentCodeSnippet: Subscription = new Subscription();
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(private codeSnippetService: CodeSnippetService) {
   }
@@ -37,6 +39,11 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
     this.subCurrentCodeSnippet.unsubscribe();
   }
 
+  /**
+   * Add a chip to chipList depending on type
+   * @param event: the chip object
+   * @param type: tag | user will separate the chip lists
+   */
   addChip(event: MatChipInputEvent, type: string): void {
     const input = event.input;
     const value = event.value;
@@ -57,6 +64,11 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Remove a chip from a chips list
+   * @param chip: ship object
+   * @param type: tag | user will separate the chip lists
+   */
   removeChip(chip: string, type: string): void {
     let index;
     if (type === 'tag') {
@@ -73,5 +85,4 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
       }
     }
   }
-
 }

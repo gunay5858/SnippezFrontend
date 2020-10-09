@@ -38,12 +38,12 @@
       <form [formGroup]="secondFormGroup">
         <mat-form-field appearance="fill">
           <mat-label>Code</mat-label>
-          <textarea formControlName="code" (keyup)="formatCode(txt.value)" #txt rows="20" matInput></textarea>
+          <textarea formControlName="code" (keyup)="setCode(txt.value)" #txt rows="20" matInput></textarea>
         </mat-form-field>
 
         <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                               (closed)="panelOpenState = false">
+          <mat-expansion-panel (opened)="previewPanelOpenState = true"
+                               (closed)="previewPanelOpenState = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 Vorschau
@@ -67,46 +67,47 @@
 
     <mat-step [stepControl]="thirdFormGroup" label="Done">
       <form [formGroup]="thirdFormGroup">
-      <mat-form-field class="tags-field">
-        <mat-chip-list #chipListTags aria-label="Tags">
-          <mat-chip *ngFor="let tag of tags" [selectable]="selectable"
-                    [removable]="removable" (removed)="removeChip(tag, 'tag')">
-            {{tag}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input formControlName="tags" placeholder="Neuer Tag..."
-                 [matChipInputFor]="chipListTags"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                 [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="addChip($event, 'tag')">
-        </mat-chip-list>
-      </mat-form-field>
+        <mat-form-field class="tags-field">
+          <mat-chip-list #chipListTags aria-label="Tags">
+            <mat-chip *ngFor="let tag of tags" [selectable]="chipsSelectable"
+                      [removable]="chipsRemovable" (removed)="removeChip(tag, 'tag')">
+              {{tag}}
+              <mat-icon matChipRemove *ngIf="chipsRemovable">cancel</mat-icon>
+            </mat-chip>
+            <input formControlName="tags" placeholder="Neuer Tag..."
+                   [matChipInputFor]="chipListTags"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="chipsAddOnBlur"
+                   (matChipInputTokenEnd)="addChip($event, 'tag')">
+          </mat-chip-list>
+        </mat-form-field>
 
-      <mat-slide-toggle formControlName="is_public" labelPosition="before">Freigeben</mat-slide-toggle><br>
-      <mat-form-field *ngIf="thirdFormGroup.get('is_public').value === true" class="tags-field">
-        <mat-chip-list #chipListSharedUser aria-label="Fruit selection">
-          <mat-chip *ngFor="let user of sharedUsers" [selectable]="selectable"
-                    [removable]="removable" (removed)="removeChip(user, 'user')">
-            {{user}}
-            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-          </mat-chip>
-          <input formControlName="sharedUsers" placeholder="Freigeben für..."
-                 [matChipInputFor]="chipListSharedUser"
-                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                 [matChipInputAddOnBlur]="addOnBlur"
-                 (matChipInputTokenEnd)="addChip($event, 'user')">
-        </mat-chip-list>
-      </mat-form-field>
+        <mat-slide-toggle formControlName="is_public" labelPosition="before">Freigeben</mat-slide-toggle>
+        <br>
+        <mat-form-field *ngIf="thirdFormGroup.get('is_public').value === true" class="tags-field">
+          <mat-chip-list #chipListSharedUser aria-label="Fruit selection">
+            <mat-chip *ngFor="let user of sharedUsers" [selectable]="chipsSelectable"
+                      [removable]="chipsRemovable" (removed)="removeChip(user, 'user')">
+              {{user}}
+              <mat-icon matChipRemove *ngIf="chipsRemovable">cancel</mat-icon>
+            </mat-chip>
+            <input formControlName="sharedUsers" placeholder="Freigeben für..."
+                   [matChipInputFor]="chipListSharedUser"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   [matChipInputAddOnBlur]="chipsAddOnBlur"
+                   (matChipInputTokenEnd)="addChip($event, 'user')">
+          </mat-chip-list>
+        </mat-form-field>
 
-      <br>
-      <mat-divider></mat-divider>
+        <br>
+        <mat-divider></mat-divider>
 
-      <div class="flex-container">
-        <button mat-button matStepperPrevious>Zurück</button>
-        <button mat-raised-button color="primary" [disabled]="!thirdFormGroup.valid"
-                (click)="addSnippetData(thirdFormGroup.value, true)">Speichern
-        </button>
-      </div>
+        <div class="flex-container">
+          <button mat-button matStepperPrevious>Zurück</button>
+          <button mat-raised-button color="primary" [disabled]="!thirdFormGroup.valid"
+                  (click)="addSnippetData(thirdFormGroup.value, true)">Speichern
+          </button>
+        </div>
       </form>
     </mat-step>
 

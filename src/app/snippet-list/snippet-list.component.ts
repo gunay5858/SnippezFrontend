@@ -9,20 +9,26 @@ import {Snippet} from "../models/snippet";
   styleUrls: ['./snippet-list.component.scss']
 })
 export class SnippetListComponent implements OnInit, OnDestroy {
-  subRefreshCodeSnippets: Subscription = new Subscription();
-  subLoadCodeSnippets: Subscription = new Subscription();
   public codeSnippets: Snippet[] = [];
+
+  // subscriptions
+  private subRefreshCodeSnippets: Subscription = new Subscription();
+  private subLoadCodeSnippets: Subscription = new Subscription();
 
   constructor(private codeSnippetService: CodeSnippetService) {
   }
 
   ngOnInit(): void {
-    this.subRefreshCodeSnippets = this.codeSnippetService.getCodeSnippetCategoryId().subscribe((categoryId: number) => {
-      this.getCodeSnippetsOfCategory(categoryId);
+    this.subRefreshCodeSnippets = this.codeSnippetService.observeCodeSnippetCategoryId().subscribe((categoryId: number) => {
+      this.loadCodeSnippetsOfCategory(categoryId);
     });
   }
 
-  public getCodeSnippetsOfCategory(categoryId: number) {
+  /**
+   * Load the code snippets of a category
+   * @param categoryId: Id of the category from whom to load the code snippets
+   */
+  public loadCodeSnippetsOfCategory(categoryId: number) {
     this.subLoadCodeSnippets = this.codeSnippetService.getCodeSnippetsOfCategory(categoryId).subscribe((codeSnippets: Snippet[]) => {
       this.codeSnippets = codeSnippets;
 
@@ -38,6 +44,10 @@ export class SnippetListComponent implements OnInit, OnDestroy {
     this.subLoadCodeSnippets.unsubscribe();
   }
 
+  /**
+   * deliver selected code snippet to other component which shows the code snippet
+   * @param $event
+   */
   showCodeSnippet($event: Snippet) {
     this.codeSnippetService.setCurrentCodeSnippet($event);
   }

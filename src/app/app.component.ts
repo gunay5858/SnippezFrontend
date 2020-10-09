@@ -1,7 +1,5 @@
-import {Component, ElementRef, TemplateRef, ViewChild} from '@angular/core';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CategoryService} from "./_services/category.service";
+import {Component} from '@angular/core';
+import {MatDialog} from "@angular/material/dialog";
 import {AddCategoryComponent} from "./add-category/add-category.component";
 
 @Component({
@@ -10,20 +8,26 @@ import {AddCategoryComponent} from "./add-category/add-category.component";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'SnippezFrontend';
-
-  @ViewChild("newCategoryDialog") foobar: TemplateRef<any>;
-
+  public newCategoryFBDisabled: boolean = false;
 
   constructor(public dialog: MatDialog) {
 
   }
 
+  /**
+   * Opens the dialog to create a new category
+   */
   openNewCategoryDialog() {
     const dialogRef = this.dialog.open(AddCategoryComponent, {hasBackdrop: false});
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    // disable creating new code snippet and create new category Floating Action Button
+    dialogRef.afterClosed().subscribe(() => {
+      this.newCategoryFBDisabled = false;
     });
+
+    // enable creating new code snippet and create new category Floating Action Button
+    dialogRef.afterOpened().subscribe(() => {
+      this.newCategoryFBDisabled = true;
+    })
   }
 }

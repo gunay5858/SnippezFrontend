@@ -1,9 +1,11 @@
+@import "./src/constants";
+
 mat-form-field {
   width: 100%;
 }
 
 .icon-description {
-  font-size: 10px;
+  font-size: 12px;
 }
 
 h3 {
@@ -11,8 +13,8 @@ h3 {
 }
 
 mat-divider {
-  margin-top: 16px;
-  margin-bottom: 16px;
+  margin-top: $margin-base;
+  margin-bottom: $margin-base;
 }
 
 button {

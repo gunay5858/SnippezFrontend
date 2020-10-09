@@ -4,7 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 import {BasicListResponse} from "../models/basic-list-response";
 import {Snippet} from "../models/snippet";
-import {BehaviorSubject, Subject} from "rxjs";
+import {Subject} from "rxjs";
 import {CodeLanguage} from "../models/code-language";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class CodeSnippetService {
   private API_BASE_URL: string = environment.API_BASE_URL;
   public refreshCodeSnippetsSubject: Subject<number> = new Subject<number>();
   public currentCodeSnippet: Subject<Snippet> = new Subject<Snippet>();
-  public codeLanguages: CodeLanguage[] = [
+  private codeLanguages: CodeLanguage[] = [
     new CodeLanguage('Markup', 'markup'),
     new CodeLanguage('HTML', 'html'),
     new CodeLanguage('XML', 'xml'),
@@ -94,28 +94,49 @@ export class CodeSnippetService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * Set next value for category Id from whom the code snippets should be loaded
+   * @param categoryId from whom the code snippets should be loaded
+   */
   public setCodeSnippetCategoryId(categoryId: number) {
     this.refreshCodeSnippetsSubject.next(categoryId);
   }
 
-  public getCodeSnippetCategoryId() {
+  /**
+   * Observer for tracking the current category Id
+   */
+  public observeCodeSnippetCategoryId() {
     return this.refreshCodeSnippetsSubject.asObservable();
   }
 
+  /**
+   * Set next value for currently displayed Code snippet
+   * @param codeSnippet to set as currently displayed
+   */
   public setCurrentCodeSnippet(codeSnippet: Snippet) {
     this.currentCodeSnippet.next(codeSnippet);
   }
 
+  /**
+   * Observer for tracking the currently displayed code snippet
+   */
   public observeCurrentCodeSnippet() {
     return this.currentCodeSnippet.asObservable();
   }
 
+  /**
+   * Get a code language by shortcut
+   * @param shortcut of language
+   */
   public getCodeLanguageByShortcut(shortcut: string) {
     return this.codeLanguages.filter((language: CodeLanguage) => {
       return language.shortcut === shortcut
     })[0];
   }
 
+  /**
+   * returns all code languages, that are available
+   */
   public getAllCodeLanguages() {
     return this.codeLanguages;
   }
