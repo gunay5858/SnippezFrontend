@@ -9,8 +9,9 @@ import {CategoryService} from "../_services/category.service";
 })
 export class AddCategoryComponent implements OnInit {
   fgNewCategory: FormGroup;
-  availableIcons: string[] = [];
-  currentIcon: string = 'java r-';
+  availableDevIcons: string[] = [];
+  availableLineAwesomeIcons: string[] = [];
+  currentIcon: string = 'las la-folder-open';
   iconsExpanded: boolean = false;
 
   constructor(private categoryService: CategoryService, private _formBuilder: FormBuilder) {
@@ -19,7 +20,8 @@ export class AddCategoryComponent implements OnInit {
       icon: ['icon-shell', [Validators.required]],
     });
 
-    this.availableIcons = this.categoryService.getAllIcons();
+    this.availableDevIcons = this.categoryService.getAllDevIcons();
+    this.availableLineAwesomeIcons = this.categoryService.getAllLineAwesomeIcons();
   }
 
   ngOnInit(): void {
