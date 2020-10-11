@@ -1,17 +1,16 @@
-<app-navbar></app-navbar>
-<i style="font-size: 50px" class="devicon-backbonejs-plain colored"></i>
+<div class="mat-app-background" [ngClass]="{'dark-theme': isDarkTheme === true, 'light-theme': isDarkTheme === false}">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
 
-<router-outlet></router-outlet>
+  <button mat-fab color="accent" class="secondary-fabBtn" (click)="openNewCategoryDialog()" matTooltip="Neue Kategorie"
+          matTooltipPosition="left"
+          aria-label="New Category" [disabled]="newCategoryFBDisabled">
+    <mat-icon>create_new_folder</mat-icon>
+  </button>
 
-<button mat-fab color="accent" class="secondary-fabBtn" (click)="openNewCategoryDialog()" matTooltip="Neue Kategorie"
-        matTooltipPosition="left"
-        aria-label="New Category" [disabled]="newCategoryFBDisabled">
-  <mat-icon>create_new_folder</mat-icon>
-</button>
-
-<a mat-fab color="primary" class="fabBtn" routerLink="/snippet/new" matTooltip="Neues Snippet" matTooltipPosition="left"
-   aria-label="New Snippet" [disabled]="newCategoryFBDisabled">
-  <mat-icon>note_add</mat-icon>
-</a>
-
-<!--ADD CATEGORY DIALOG-->
+  <button mat-fab color="primary" class="fabBtn" (click)="navigate()" matTooltip="Neues Snippet"
+          matTooltipPosition="left"
+          aria-label="New Snippet" [disabled]="newCategoryFBDisabled">
+    <mat-icon>note_add</mat-icon>
+  </button>
+</div>

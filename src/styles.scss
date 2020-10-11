@@ -1,10 +1,24 @@
 @import "constants";
+@import "app/_styles/dark-theme";
+@import "app/_styles/light-theme";
 
 html, body {
-  height: 100%;
-  background-color: #EEEEEE;
+  height: 100vh;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+* {
+  scrollbar-width: none;
+}
+
+/* Works on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 0;
+}
+
+mat-grid-tile {
+  overflow: auto !important;
 }
 
 .mat-list-base {
@@ -15,8 +29,8 @@ html, body {
   float: right;
 }
 
-.text-muted {
-  color: #455A64;
+.mat-horizontal-stepper-header-container {
+  margin-bottom: $margin-base;
 }
 
 .flex-container {

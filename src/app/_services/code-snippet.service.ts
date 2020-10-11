@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
-import {BasicListResponse} from "../models/basic-list-response";
-import {Snippet} from "../models/snippet";
+import {BasicListResponse} from "../_models/basic-list-response";
+import {Snippet} from "../_models/snippet";
 import {Subject} from "rxjs";
-import {CodeLanguage} from "../models/code-language";
+import {CodeLanguage} from "../_models/code-language";
 
 @Injectable({
   providedIn: 'root'

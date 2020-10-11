@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs/operators";
-import {BasicListResponse} from "../models/basic-list-response";
-import {Category} from "../models/category";
+import {BasicListResponse} from "../_models/basic-list-response";
+import {Category} from "../_models/category";
 
 @Injectable({
   providedIn: 'root'

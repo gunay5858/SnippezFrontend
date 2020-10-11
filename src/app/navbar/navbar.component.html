@@ -8,7 +8,7 @@
       </a>
     </div>
     <span class="navbar-spacer"></span>
-    <mat-slide-toggle labelPosition="before" matTooltip="Light Mode" [checked]="lightThemeIsActive">
+    <mat-slide-toggle labelPosition="before" matTooltip="{{currentTheme}} Mode" [checked]="isDarkTheme" (change)="toggleDarkTheme($event.checked)">
       <mat-icon aria-hidden="false" aria-label="toggle theme" fontSet="material-icons-outlined">wb_sunny
       </mat-icon>
     </mat-slide-toggle>

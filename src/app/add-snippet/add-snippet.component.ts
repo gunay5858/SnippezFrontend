@@ -2,8 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Category} from "../models/category";
-import {Snippet} from "../models/snippet";
+import {Category} from "../_models/category";
+import {Snippet} from "../_models/snippet";
 
 @Component({
   selector: 'app-add-snippet',

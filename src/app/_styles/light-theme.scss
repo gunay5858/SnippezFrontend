@@ -1,0 +1,31 @@
+@import '../../../node_modules/@angular/material/theming';
+
+// light theme
+.light-theme {
+  color: $light-primary-text;
+  $light-primary: mat-palette($mat-indigo, 700, 300, 900);
+  $light-accent: mat-palette($mat-pink, 400);
+  $light-warn: mat-palette($mat-red, 100);
+  $bp: mat-palette($mat-red);
+  $light-text-muted: mat-color($mat-blue-grey, 800, 0.7);
+  $light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+
+  .text-muted {
+    color: $light-text-muted;
+  }
+
+  code {
+    background: mat-color($mat-blue-grey, 200, 0.4) !important;
+
+    .hljs {
+      background: mat-color($mat-blue-grey, 200, 0.4) !important;
+    }
+  }
+
+  pre {
+    background-color: unset !important;
+    padding: 0 !important;
+  }
+
+  @include angular-material-theme($light-theme);
+}

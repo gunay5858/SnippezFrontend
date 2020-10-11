@@ -4,7 +4,7 @@ import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {CodeSnippetService} from "../_services/code-snippet.service";
 import {Subscription} from "rxjs";
-import {Snippet} from "../models/snippet";
+import {Snippet} from "../_models/snippet";
 
 @Component({
   selector: 'app-show-snippet',

@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Category} from "../models/category";
+import {Category} from "../_models/category";
 import {CategoryService} from "../_services/category.service";
 import {Subscription} from "rxjs";
 import {CodeSnippetService} from "../_services/code-snippet.service";

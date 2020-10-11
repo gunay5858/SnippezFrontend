@@ -1,11 +1,15 @@
 .fabBtn {
   position: fixed;
-  bottom: 16px;
+  bottom: 90px;
   right: 16px;
 }
 
 .secondary-fabBtn {
   position: fixed;
-  bottom: 90px;
+  bottom: 16px;
   right: 16px;
+}
+
+.mat-app-background {
+  min-height: 100vh;
 }

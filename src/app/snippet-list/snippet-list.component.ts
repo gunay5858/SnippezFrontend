@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CodeSnippetService} from "../_services/code-snippet.service";
 import {Subscription} from "rxjs";
-import {Snippet} from "../models/snippet";
+import {Snippet} from "../_models/snippet";
 
 @Component({
   selector: 'app-snippet-list',
