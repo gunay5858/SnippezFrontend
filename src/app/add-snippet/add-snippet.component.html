@@ -84,8 +84,8 @@
 
         <mat-slide-toggle formControlName="is_public" labelPosition="before">Freigeben</mat-slide-toggle>
         <br>
-        <mat-form-field *ngIf="thirdFormGroup.get('is_public').value === true" class="tags-field">
-          <mat-chip-list #chipListSharedUser aria-label="Fruit selection">
+        <mat-form-field *ngIf="thirdFormGroup?.get('is_public')?.value === true" class="tags-field">
+          <mat-chip-list #chipListSharedUser aria-label="Freigeben">
             <mat-chip *ngFor="let user of sharedUsers" [selectable]="chipsSelectable"
                       [removable]="chipsRemovable" (removed)="removeChip(user, 'user')">
               {{user}}

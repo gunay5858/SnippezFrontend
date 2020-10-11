@@ -5,6 +5,8 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {CodeSnippetService} from "../_services/code-snippet.service";
 import {Subscription} from "rxjs";
 import {Snippet} from "../_models/snippet";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CodeLanguage} from "../_models/code-language";
 
 @Component({
   selector: 'app-show-snippet',
@@ -20,18 +22,29 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
   // current code snippet attributes
   public tags: string[] = [];
   public sharedUsers: string[] = [];
+  public public: boolean = false;
   public currentCodeSnippet: Snippet;
+  public codeLanguage: CodeLanguage;
 
   private subCurrentCodeSnippet: Subscription = new Subscription();
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  public fgSettings: FormGroup;
 
-  constructor(private codeSnippetService: CodeSnippetService) {
+  constructor(private codeSnippetService: CodeSnippetService, private formBuilder: FormBuilder) {
+    this.fgSettings = this.formBuilder.group({
+      tags: [this.tags],
+      sharedUsers: [this.sharedUsers],
+      is_public: [this.public, Validators.required]
+    });
   }
 
   ngOnInit(): void {
     this.subCurrentCodeSnippet = this.codeSnippetService.observeCurrentCodeSnippet().subscribe((codeSnippet: Snippet) => {
       this.currentCodeSnippet = codeSnippet;
       this.tags = this.currentCodeSnippet.tags.split(',');
+      this.sharedUsers = this.currentCodeSnippet.shared_users;
+      this.public = this.currentCodeSnippet.public;
+      this.codeLanguage = this.codeSnippetService.getCodeLanguageByShortcut(this.currentCodeSnippet.codeLanguage);
     });
   }
 

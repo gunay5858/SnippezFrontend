@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_BASE_URL: "http://localhost:8080/api/v1/",
-  devToken: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJSb2xlcyI6WyJtZW1iZXIiXSwiZXhwIjoxNjAyMzgzNzI0LCJpYXQiOjE2MDIzNDc3MjR9.EfVrMNKGBU7cX4uDHcu8SXebs0O-KzPVNwsPMLPm8os"
+  devToken: "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJSb2xlcyI6WyJtZW1iZXIiXSwiZXhwIjoxNjAyNDU1ODQ3LCJpYXQiOjE2MDI0MTk4NDd9._Rz0bzwWjAi8AOqLM0BbtD0WKkg_ff1AL11UgdVcWKI"
 };
 
 /*

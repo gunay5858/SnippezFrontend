@@ -36,6 +36,7 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { SnippetListItemComponent } from './snippet-list/snippet-list-item/snippet-list-item.component';
 import {MatBadgeModule} from "@angular/material/badge";
 import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
     ReactiveFormsModule,
     MatDialogModule,
     MatBadgeModule,
-    HighlightModule
+    HighlightModule,
+    MatAutocompleteModule
   ],
   providers: [{
     provide: HIGHLIGHT_OPTIONS,
