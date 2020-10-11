@@ -34,7 +34,7 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
     this.fgSettings = this.formBuilder.group({
       tags: [this.tags],
       sharedUsers: [this.sharedUsers],
-      is_public: [this.public, Validators.required]
+      public: [this.public, Validators.required]
     });
   }
 
@@ -44,6 +44,8 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
       this.tags = this.currentCodeSnippet.tags.split(',');
       this.sharedUsers = this.currentCodeSnippet.shared_users;
       this.public = this.currentCodeSnippet.public;
+
+      this.fgSettings.patchValue({public: this.public})
       this.codeLanguage = this.codeSnippetService.getCodeLanguageByShortcut(this.currentCodeSnippet.codeLanguage);
     });
   }

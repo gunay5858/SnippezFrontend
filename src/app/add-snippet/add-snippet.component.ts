@@ -1,18 +1,20 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Category} from "../_models/category";
 import {Snippet} from "../_models/snippet";
+import {CategoryService} from "../_services/category.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-add-snippet',
   templateUrl: './add-snippet.component.html',
   styleUrls: ['./add-snippet.component.scss']
 })
-export class AddSnippetComponent implements OnInit {
+export class AddSnippetComponent implements OnInit, OnDestroy {
   // code snippet attributes
-  public selectedCategory: Category = null;
+  public selectedCategory: Category;
   public categories: Category[] = [];
   public sharedUsers: string[] = [];
   public tags: string[] = [];
@@ -31,7 +33,10 @@ export class AddSnippetComponent implements OnInit {
   public thirdFormGroup: FormGroup;
   public previewPanelOpenState = false;
 
-  constructor(private _formBuilder: FormBuilder) {
+  // subscriptions
+  private subCategories: Subscription = new Subscription();
+
+  constructor(private _formBuilder: FormBuilder, private categoryService: CategoryService) {
     this.firstFormGroup = this._formBuilder.group({
       title: [this.currentSnippet.title, [Validators.required, Validators.minLength(3)]],
       category: [this.currentSnippet.category],
@@ -44,6 +49,16 @@ export class AddSnippetComponent implements OnInit {
       tags: [null],
       sharedUsers: [null],
       is_public: [false, Validators.required]
+    });
+  }
+
+  ngOnDestroy(): void {
+        this.subCategories.unsubscribe();
+    }
+
+  loadCategories() {
+    this.categoryService.getUsersCategories().subscribe((categories: Category[]) => {
+      this.categories = categories;
     });
   }
 
@@ -93,7 +108,7 @@ export class AddSnippetComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.loadCategories();
   }
 
   /**
@@ -110,6 +125,7 @@ export class AddSnippetComponent implements OnInit {
    * @param save: persist in database
    */
   addSnippetData(value: any, save: boolean) {
+    console.log(value)
     Object.assign(this.currentSnippet, value);
 
     if (save === true) {

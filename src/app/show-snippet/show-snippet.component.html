@@ -45,9 +45,9 @@
       </mat-chip-list>
     </mat-form-field>
 
-    <mat-slide-toggle formControlName="is_public" labelPosition="before">Freigeben</mat-slide-toggle>
+    <mat-slide-toggle formControlName="public" labelPosition="before">Freigeben</mat-slide-toggle>
     <br>
-    <mat-form-field *ngIf="fgSettings?.get('is_public')?.value === true" class="tags-field">
+    <mat-form-field *ngIf="fgSettings?.get('public')?.value === true" class="tags-field">
       <mat-chip-list #chipListSharedUser aria-label="Freigeben">
         <mat-chip *ngFor="let user of sharedUsers" [selectable]="chipSelectable"
                   [removable]="chipRemovable" (removed)="removeChip(user, 'user')">

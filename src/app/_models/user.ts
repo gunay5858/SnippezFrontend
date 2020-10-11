@@ -8,4 +8,9 @@ export class User {
   role: string;
   created_at: Date;
   updated_at: Date;
+
+
+  constructor(username: string) {
+    this.username = username;
+  }
 }
