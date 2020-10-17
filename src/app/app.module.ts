@@ -37,6 +37,7 @@ import { SnippetListItemComponent } from './snippet-list/snippet-list-item/snipp
 import {MatBadgeModule} from "@angular/material/badge";
 import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import { ShareSnippetComponent } from './share-snippet/share-snippet.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
     LoginComponent,
     AddSnippetComponent,
     AddCategoryComponent,
-    SnippetListItemComponent
+    SnippetListItemComponent,
+    ShareSnippetComponent
   ],
   imports: [
     BrowserModule,

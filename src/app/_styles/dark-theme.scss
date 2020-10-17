@@ -26,6 +26,10 @@
     padding: 0 !important;
   }
 
+  .mat-list-item-content:hover {
+    background-color: mat-color($mat-blue-grey, 100, 0.3);
+  }
+
   @include angular-material-theme($dark-theme);
   @include mat-dialog-theme($dark-theme);
 }

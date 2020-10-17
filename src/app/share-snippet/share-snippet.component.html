@@ -1,0 +1,67 @@
+<form [formGroup]="fgSettings">
+  <mat-form-field class="tags-field">
+    <mat-chip-list #chipListTags aria-label="Fruit selection">
+      <mat-chip *ngFor="let tag of tags" [selectable]="chipSelectable"
+                [removable]="chipRemovable" (removed)="removeChip(tag, 'tag')">
+        {{tag}}
+        <mat-icon matChipRemove *ngIf="chipRemovable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder="Neuer Tag..."
+             formControlName="tags"
+             [matChipInputFor]="chipListTags"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="chipAddOnBlur"
+             (matChipInputTokenEnd)="addChip($event, 'tag')">
+    </mat-chip-list>
+  </mat-form-field>
+
+  <mat-slide-toggle formControlName="public" [checked]="fgSettings?.get('public')?.value"
+                    (change)="setAllUsers(toggleShare.checked)" #toggleShare
+                    labelPosition="before">Freigeben
+  </mat-slide-toggle>
+  <br>
+  <mat-grid-list cols="2" *ngIf="public === true">
+    <mat-grid-tile colspan="1">
+      <mat-form-field>
+        <input matInput #sharedUsersInput
+               placeholder="Benutzer"
+               aria-label="Benutzer"
+               [matAutocomplete]="auto"
+               formControlName="sharedUsers">
+        <mat-autocomplete (optionSelected)="addUserToSelectedList($event?.option?.value)" #auto="matAutocomplete">
+          <mat-option *ngFor="let user of availableUsers" [value]="user">
+            <div class="option-row">
+              <div class="img-wrapper">
+                <img class="example-option-img" aria-hidden
+                     [src]="user?.avatar ? (avatarUrl + user?.avatar) : 'assets/img/no-avatar.jpg'" height="24"/>
+              </div>
+              <span>{{user?.username}}</span>
+            </div>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="1">
+      <div class="grid-heading" *ngIf="selectedUsers?.length === 0">
+        Freigegeben für &nbsp;<span class="font-italic text-muted">jeden</span>.
+      </div>
+
+      <mat-selection-list>
+        <ng-container *ngFor="let user of selectedUsers;let i = index">
+          <mat-list-option [selected]="true" (click)="removeUser(user)" *ngIf="selectedUsers?.length > 0"
+                           class="shared-users-list">
+            <div class="option-row">
+              <div class="img-wrapper">
+                <img class="example-option-img" aria-hidden
+                     [src]="user?.avatar ? (avatarUrl + user?.avatar) : 'assets/img/no-avatar.jpg'" height="24"/>
+              </div>
+              <span class="username-list-option">{{user?.username}}</span>
+            </div>
+          </mat-list-option>
+        </ng-container>
+      </mat-selection-list>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>

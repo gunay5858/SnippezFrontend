@@ -69,49 +69,12 @@
     </mat-step>
 
     <mat-step [stepControl]="thirdFormGroup" label="Done">
-      <form [formGroup]="thirdFormGroup">
-        <mat-form-field class="tags-field">
-          <mat-chip-list #chipListTags aria-label="Tags">
-            <mat-chip *ngFor="let tag of tags" [selectable]="chipsSelectable"
-                      [removable]="chipsRemovable" (removed)="removeChip(tag, 'tag')">
-              {{tag}}
-              <mat-icon matChipRemove *ngIf="chipsRemovable">cancel</mat-icon>
-            </mat-chip>
-            <input formControlName="tags" placeholder="Neuer Tag..."
-                   [matChipInputFor]="chipListTags"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="chipsAddOnBlur"
-                   (matChipInputTokenEnd)="addChip($event, 'tag')">
-          </mat-chip-list>
-        </mat-form-field>
-
-        <mat-slide-toggle formControlName="is_public" labelPosition="before">Freigeben</mat-slide-toggle>
-        <br>
-        <mat-form-field *ngIf="thirdFormGroup?.get('is_public')?.value === true" class="tags-field">
-          <mat-chip-list #chipListSharedUser aria-label="Freigeben">
-            <mat-chip *ngFor="let user of sharedUsers" [selectable]="chipsSelectable"
-                      [removable]="chipsRemovable" (removed)="removeChip(user, 'user')">
-              {{user}}
-              <mat-icon matChipRemove *ngIf="chipsRemovable">cancel</mat-icon>
-            </mat-chip>
-            <input formControlName="sharedUsers" placeholder="Freigeben für..."
-                   [matChipInputFor]="chipListSharedUser"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   [matChipInputAddOnBlur]="chipsAddOnBlur"
-                   (matChipInputTokenEnd)="addChip($event, 'user')">
-          </mat-chip-list>
-        </mat-form-field>
-
-        <br>
-        <mat-divider></mat-divider>
-
-        <div class="flex-container">
-          <button mat-button matStepperPrevious>Zurück</button>
-          <button mat-raised-button color="primary" [disabled]="!thirdFormGroup.valid"
-                  (click)="addSnippetData(thirdFormGroup.value, true)">Speichern
-          </button>
-        </div>
-      </form>
+      <app-share-snippet [public]="false" [tags]="[]" [selectedUsers]="[]"
+                         (onPublicStatusChange)="addSnippetData({public: $event}, false)"
+                         (onSharedUsersChanged)="addSnippetData({sharedUsers: $event}, false)"
+                         (onTagsChanged)="addSnippetData({tags: $event}, false)"></app-share-snippet>
+      <br>
+      <button mat-raised-button color="primary" (click)="addSnippetData(null, true)">Speichern</button>
     </mat-step>
 
   </mat-horizontal-stepper>

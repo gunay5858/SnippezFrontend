@@ -1,12 +1,19 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
-import {MatChipInputEvent} from "@angular/material/chips";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {CodeSnippetService} from "../_services/code-snippet.service";
 import {Subscription} from "rxjs";
 import {Snippet} from "../_models/snippet";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormGroup} from "@angular/forms";
 import {CodeLanguage} from "../_models/code-language";
+import {User} from "../_models/user";
+import {ShareSnippetComponent} from "../share-snippet/share-snippet.component";
 
 @Component({
   selector: 'app-show-snippet',
@@ -14,90 +21,73 @@ import {CodeLanguage} from "../_models/code-language";
   styleUrls: ['./show-snippet.component.scss']
 })
 export class ShowSnippetComponent implements OnInit, OnDestroy {
-  // chip list config
-  chipSelectable = true;
-  chipRemovable = true;
-  chipAddOnBlur = true;
+  @ViewChild("sharedUserSettings", {read: ViewContainerRef}) private vcr: ViewContainerRef;
 
-  // current code snippet attributes
-  public tags: string[] = [];
-  public sharedUsers: string[] = [];
   public public: boolean = false;
   public currentCodeSnippet: Snippet;
   public codeLanguage: CodeLanguage;
 
+  // subscriptions
   private subCurrentCodeSnippet: Subscription = new Subscription();
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  public fgSettings: FormGroup;
+  private subSharedUsers: Subscription = new Subscription();
+  private subTags: Subscription = new Subscription();
+  private subPublic: Subscription = new Subscription();
 
-  constructor(private codeSnippetService: CodeSnippetService, private formBuilder: FormBuilder) {
-    this.fgSettings = this.formBuilder.group({
-      tags: [this.tags],
-      sharedUsers: [this.sharedUsers],
-      public: [this.public, Validators.required]
-    });
+  fgSettings: FormGroup;
+  private tags: string[];
+
+  constructor(private codeSnippetService: CodeSnippetService, private componentFactoryResolver: ComponentFactoryResolver) {
+
   }
 
   ngOnInit(): void {
     this.subCurrentCodeSnippet = this.codeSnippetService.observeCurrentCodeSnippet().subscribe((codeSnippet: Snippet) => {
       this.currentCodeSnippet = codeSnippet;
       this.tags = this.currentCodeSnippet.tags.split(',');
-      this.sharedUsers = this.currentCodeSnippet.shared_users;
       this.public = this.currentCodeSnippet.public;
 
-      this.fgSettings.patchValue({public: this.public})
       this.codeLanguage = this.codeSnippetService.getCodeLanguageByShortcut(this.currentCodeSnippet.codeLanguage);
+
+      this.injectSettingsComponent();
     });
   }
 
   ngOnDestroy(): void {
     this.subCurrentCodeSnippet.unsubscribe();
+    this.subSharedUsers.unsubscribe();
+    this.subTags.unsubscribe();
+    this.subPublic.unsubscribe();
   }
 
   /**
-   * Add a chip to chipList depending on type
-   * @param event: the chip object
-   * @param type: tag | user will separate the chip lists
+   * create the settings component
    */
-  addChip(event: MatChipInputEvent, type: string): void {
-    const input = event.input;
-    const value = event.value;
+  injectSettingsComponent() {
+    let resolver = this.componentFactoryResolver.resolveComponentFactory(ShareSnippetComponent);
+    let componentFactory = this.vcr.createComponent(resolver);
+    componentFactory.instance.public = this.currentCodeSnippet.public;
+    componentFactory.instance.selectedUsers = this.currentCodeSnippet.sharedUsers;
+    componentFactory.instance.tags = this.currentCodeSnippet.tags.split(",");
 
-    if (type === 'tag') {
-      if ((value || '').trim()) {
-        this.tags.push(value.trim());
-      }
-    } else {
-      if ((value || '').trim()) {
-        this.sharedUsers.push(value.trim());
-      }
-    }
+    // subscribe to output
+    this.subSharedUsers = componentFactory.instance.onSharedUsersChanged.subscribe((sharedUsers: User[]) => {
+      this.currentCodeSnippet.sharedUsers = sharedUsers;
+    });
 
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
+    this.subTags = componentFactory.instance.onTagsChanged.subscribe((tags: string) => {
+      this.currentCodeSnippet.tags = tags;
+    });
+
+    this.subPublic = componentFactory.instance.onPublicStatusChange.subscribe((isPublic: boolean) => {
+      this.currentCodeSnippet.public = isPublic;
+    })
   }
 
   /**
-   * Remove a chip from a chips list
-   * @param chip: ship object
-   * @param type: tag | user will separate the chip lists
+   * Save snippet to database
    */
-  removeChip(chip: string, type: string): void {
-    let index;
-    if (type === 'tag') {
-      index = this.tags.indexOf(chip);
-
-      if (index >= 0) {
-        this.tags.splice(index, 1);
-      }
-    } else {
-      index = this.sharedUsers.indexOf(chip);
-
-      if (index >= 0) {
-        this.sharedUsers.splice(index, 1);
-      }
-    }
+  saveSnippet() {
+    // TODO: save to DB
+    console.log(this.currentCodeSnippet)
   }
 }

@@ -1,6 +1,4 @@
-import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {MatChipInputEvent} from "@angular/material/chips";
-import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {Component, OnDestroy, OnInit, ViewChild, ViewContainerRef, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Category} from "../_models/category";
 import {Snippet} from "../_models/snippet";
@@ -16,16 +14,11 @@ export class AddSnippetComponent implements OnInit, OnDestroy {
   // code snippet attributes
   public selectedCategory: Category;
   public categories: Category[] = [];
-  public sharedUsers: string[] = [];
   public tags: string[] = [];
   public code = '';
   public currentSnippet: Snippet = new Snippet();
 
-  // chips
-  public chipsSelectable = true;
-  public chipsRemovable = true;
-  public chipsAddOnBlur = true;
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  @ViewChild("tplSettings", {read: ViewContainerRef}) private vcr: ViewContainerRef;
 
   // form validations
   public firstFormGroup: FormGroup;
@@ -45,66 +38,19 @@ export class AddSnippetComponent implements OnInit, OnDestroy {
     this.secondFormGroup = this._formBuilder.group({
       code: [this.currentSnippet.code, [Validators.required, Validators.minLength(3)]]
     });
-    this.thirdFormGroup = this._formBuilder.group({
-      tags: [null],
-      sharedUsers: [null],
-      is_public: [false, Validators.required]
-    });
   }
 
   ngOnDestroy(): void {
-        this.subCategories.unsubscribe();
-    }
+    this.subCategories.unsubscribe();
+  }
 
+  /**
+   * Load available categories from database
+   */
   loadCategories() {
     this.categoryService.getUsersCategories().subscribe((categories: Category[]) => {
       this.categories = categories;
     });
-  }
-
-  /**
-   * Add a chip to chipList depending on type
-   * @param event: the chip object
-   * @param type: tag | user will separate the chip lists
-   */
-  addChip(event: MatChipInputEvent, type: string): void {
-    const input = event.input;
-    const value = event.value;
-
-    // Add chip
-    if ((value || '').trim()) {
-      if (type === 'tag') {
-        this.tags.push(value.trim());
-      } else {
-        this.sharedUsers.push(value.trim())
-      }
-    }
-
-    // Reset the input value
-    if (input) {
-      input.value = '';
-    }
-  }
-
-  /**
-   * Remove a chip from a chips list
-   * @param chip: ship object
-   * @param type: tag | user will separate the chip lists
-   */
-  removeChip(chip: string, type: string): void {
-    let index;
-
-    if (type === 'tag') {
-      index = this.tags.indexOf(chip);
-      if (index >= 0) {
-        this.tags.splice(index, 1);
-      }
-    } else {
-      index = this.sharedUsers.indexOf(chip);
-      if (index >= 0) {
-        this.sharedUsers.splice(index, 1);
-      }
-    }
   }
 
   ngOnInit(): void {
@@ -130,7 +76,9 @@ export class AddSnippetComponent implements OnInit, OnDestroy {
 
     if (save === true) {
       this.currentSnippet.tags = this.tags.toString();
-      this.currentSnippet.shared_users = this.sharedUsers;
+
+      // todo: bring shared user to form User: {username: <username>}
+      //this.currentSnippet.shared_users = this.sharedUsers;
       // todo: save data to db and deliver message
     }
     console.log(this.currentSnippet);

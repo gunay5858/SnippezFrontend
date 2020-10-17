@@ -8,7 +8,7 @@ export class Snippet {
   tags: string;
   code: string;
   codeLanguage: string;
-  shared_users: string[];
+  sharedUsers: User[];
   public: boolean;
   category: Category;
   creator: User;

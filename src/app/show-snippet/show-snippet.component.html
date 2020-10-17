@@ -27,42 +27,7 @@
 
 <mat-card>
   <h3>Einstellungen</h3>
-
-  <form [formGroup]="fgSettings">
-    <mat-form-field class="tags-field">
-      <mat-chip-list #chipListTags aria-label="Fruit selection">
-        <mat-chip *ngFor="let tag of tags" [selectable]="chipSelectable"
-                  [removable]="chipRemovable" (removed)="removeChip(tag, 'tag')">
-          {{tag}}
-          <mat-icon matChipRemove *ngIf="chipRemovable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Neuer Tag..."
-               formControlName="tags"
-               [matChipInputFor]="chipListTags"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="chipAddOnBlur"
-               (matChipInputTokenEnd)="addChip($event, 'tag')">
-      </mat-chip-list>
-    </mat-form-field>
-
-    <mat-slide-toggle formControlName="public" labelPosition="before">Freigeben</mat-slide-toggle>
-    <br>
-    <mat-form-field *ngIf="fgSettings?.get('public')?.value === true" class="tags-field">
-      <mat-chip-list #chipListSharedUser aria-label="Freigeben">
-        <mat-chip *ngFor="let user of sharedUsers" [selectable]="chipSelectable"
-                  [removable]="chipRemovable" (removed)="removeChip(user, 'user')">
-          {{user}}
-          <mat-icon matChipRemove *ngIf="chipRemovable">cancel</mat-icon>
-        </mat-chip>
-        <input formControlName="sharedUsers" placeholder="Freigeben für..."
-               [matChipInputFor]="chipListSharedUser"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-               [matChipInputAddOnBlur]="chipAddOnBlur"
-               (matChipInputTokenEnd)="addChip($event, 'user')">
-      </mat-chip-list>
-    </mat-form-field>
-
-    <br><br>
-    <button class="mat-raised-button mat-primary" mat-dialog-close="true" [disabled]="!fgSettings?.valid">Speichern</button>
-  </form>
+  <ng-template #sharedUserSettings></ng-template><br>
+  <button class="mat-raised-button mat-primary" (click)="saveSnippet()">Speichern
+  </button>
 </mat-card>

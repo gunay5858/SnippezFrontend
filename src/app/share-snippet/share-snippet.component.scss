@@ -1,0 +1,50 @@
+@import "./src/constants";
+
+.mat-form-field {
+  width: 100%;
+}
+
+.option-row {
+  display: flex;
+  flex-direction: row;
+
+  .img-wrapper {
+    display: flex;
+    align-items: self-start;
+    flex-direction: column;
+    justify-content: center;
+    width: 25px;
+    margin-right: .8em;
+  }
+
+  img {
+    border-radius: 50%;
+    align-self: center;
+    padding: 5px;
+    min-width: 24px;
+  }
+}
+
+mat-selection-list {
+  width: 100%;
+  padding: $padding-base;
+}
+
+.shared-users-list {
+  margin-left: $margin-base;
+
+  mat-icon {
+    position: absolute;
+    right: 24px;
+    cursor: pointer;
+  }
+}
+
+.grid-heading {
+  display: block;
+  width: 100%;
+}
+
+.username-list-option {
+  line-height: 30px;
+}
