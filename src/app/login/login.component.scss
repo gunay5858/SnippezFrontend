@@ -1,0 +1,11 @@
+@import "./src/constants";
+
+.mat-card {
+  max-width: 30%;
+  display: block;
+  margin: $margin-base auto;
+}
+
+mat-form-field {
+  width: 100%;
+}

@@ -1,0 +1,51 @@
+@import "./src/constants";
+
+.mat-card {
+  max-width: 30%;
+  display: block;
+  margin: $margin-base auto;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+#avatar {
+  display: none;
+}
+
+.avatar-placeholder {
+  height: 7em;
+  width: 7em;
+  border: 1px dashed darkgrey;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  margin: 0 auto $margin-base;
+
+  .avatar-placeholder-icon {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  img {
+    height: 95%;
+    width: 95%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border-radius: 50%;
+  }
+}
+
+#delete-avatar {
+  text-align: center;
+  margin-bottom: 1em;
+}

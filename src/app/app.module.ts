@@ -38,6 +38,7 @@ import {MatBadgeModule} from "@angular/material/badge";
 import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { ShareSnippetComponent } from './share-snippet/share-snippet.component';
+import { ReCaptchaComponent } from './re-captcha/re-captcha.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ShareSnippetComponent } from './share-snippet/share-snippet.component';
     AddSnippetComponent,
     AddCategoryComponent,
     SnippetListItemComponent,
-    ShareSnippetComponent
+    ShareSnippetComponent,
+    ReCaptchaComponent
   ],
   imports: [
     BrowserModule,

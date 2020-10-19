@@ -1,1 +1,48 @@
-<p>register works!</p>
+<mat-card>
+  <mat-card-title>Konto anlegen</mat-card-title>
+  <mat-card-subtitle>Erstelle ein Konto und speichere deine Codeschnipsel ab.</mat-card-subtitle>
+
+  <mat-card-content>
+    <form [formGroup]="fgRegister">
+      <div class="avatar-placeholder" matTooltip="Avatar auswählen" matTooltipPosition="left"
+           (click)="avatarFileInput.click();">
+        <img [src]="null" [ngStyle]="{'display': avatarIsSelected === true ? 'block' : 'none'}" #avatarPreview>
+        <mat-icon [ngStyle]="{'display': avatarIsSelected === true ? 'none' : 'block'}"
+                  class="avatar-placeholder-icon"
+                  fontSet="material-icons-outlined">add_photo_alternate
+        </mat-icon>
+      </div>
+      <a href="javascript:;" id="delete-avatar" [ngStyle]="{'display': avatarIsSelected === true ? 'block' : 'none'}"
+         (click)="removeAvatar()">Avatar löschen</a>
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Benutzername</mat-label>
+        <input matInput formControlName="username">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Passwort</mat-label>
+        <input type="password" matInput formControlName="password">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Passwort bestätigen</mat-label>
+        <input type="password" matInput formControlName="password_confirm">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>E-Mail</mat-label>
+        <input type="email" matInput formControlName="email">
+      </mat-form-field>
+
+      <input type="file" formControlName="avatar" (change)="setAvatar($event)" #avatarFileInput id="avatar">
+
+      <app-re-captcha (onVerified)="setReCaptchaVerified($event)"></app-re-captcha>
+    </form>
+  </mat-card-content>
+
+  <button mat-raised-button color="primary">Konto anlegen</button> &nbsp;
+  <a routerLink="/login">Passwort vergessen</a>
+
+</mat-card>

@@ -31,5 +31,13 @@
     background-color: mat-color($mat-blue-grey, 100, 0.3);
   }
 
+  a {
+    color: mat-color($light-accent, 500, 1);
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
   @include angular-material-theme($light-theme);
 }
