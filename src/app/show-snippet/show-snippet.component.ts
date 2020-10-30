@@ -63,6 +63,7 @@ export class ShowSnippetComponent implements OnInit, OnDestroy {
    * create the settings component
    */
   injectSettingsComponent() {
+    this.vcr.clear();
     let resolver = this.componentFactoryResolver.resolveComponentFactory(ShareSnippetComponent);
     let componentFactory = this.vcr.createComponent(resolver);
     componentFactory.instance.public = this.currentCodeSnippet.public;
