@@ -39,6 +39,8 @@ import {HIGHLIGHT_OPTIONS, HighlightModule} from "ngx-highlightjs";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import { ShareSnippetComponent } from './share-snippet/share-snippet.component';
 import { ReCaptchaComponent } from './re-captcha/re-captcha.component';
+import { AdminAppComponent } from './admin/admin-app/admin-app.component';
+import { AdminNavigationComponent } from './admin/admin-navigation/admin-navigation.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ReCaptchaComponent } from './re-captcha/re-captcha.component';
     AddCategoryComponent,
     SnippetListItemComponent,
     ShareSnippetComponent,
-    ReCaptchaComponent
+    ReCaptchaComponent,
+    AdminAppComponent,
+    AdminNavigationComponent
   ],
   imports: [
     BrowserModule,

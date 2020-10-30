@@ -6,6 +6,10 @@
         <mat-icon aria-hidden="false" aria-label="Go to dashboard" fontSet="material-icons-outlined">dashboard
         </mat-icon>
       </a>
+      <a mat-button [routerLink]="'/admincp'" matTooltip="AdminCP">
+        <mat-icon aria-hidden="false" aria-label="Go to AdminCP" fontSet="material-icons-outlined">admin_panel_settings
+        </mat-icon>
+      </a>
     </div>
     <span class="navbar-spacer"></span>
     <mat-slide-toggle labelPosition="before" matTooltip="{{currentTheme}} Mode" [checked]="isDarkTheme" (change)="toggleDarkTheme($event.checked)">
