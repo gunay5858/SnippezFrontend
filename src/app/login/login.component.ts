@@ -19,4 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  setReCaptchaVerified($event: boolean) {
+
+  }
 }

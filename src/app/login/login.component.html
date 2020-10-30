@@ -13,6 +13,8 @@
         <mat-label>Passwort</mat-label>
         <input type="password" matInput formControlName="password">
       </mat-form-field>
+
+      <app-re-captcha (onVerified)="setReCaptchaVerified($event)"></app-re-captcha>
     </form>
   </mat-card-content>
 
