@@ -1,10 +1,11 @@
-<app-admin-navigation></app-admin-navigation>
-
-<mat-grid-list cols="5">
-  <mat-grid-tile colspan="1" style="background-color: red">
-
-
-
+<mat-grid-list cols="5" rowHeight="100vh">
+  <mat-grid-tile colspan="1">
+    <mat-card>
+    <app-admin-navigation></app-admin-navigation>
+    </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile colspan="4">b</mat-grid-tile>
+  <mat-grid-tile colspan="4">
+    <router-outlet name="admin"></router-outlet>
+  </mat-grid-tile>
 </mat-grid-list>
+

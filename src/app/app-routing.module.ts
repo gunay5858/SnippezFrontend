@@ -5,6 +5,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {AddSnippetComponent} from "./add-snippet/add-snippet.component";
 import {AdminAppComponent} from "./admin/admin-app/admin-app.component";
+import {AdminDashboardComponent} from "./admin/admin-dashboard/admin-dashboard.component";
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'snippet/new', component: AddSnippetComponent},
   {path: 'admincp', component: AdminAppComponent},
+  {path: 'dashboard', component: AdminDashboardComponent, outlet: 'admin'},
   { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
 ];
 

@@ -41,6 +41,7 @@ import { ShareSnippetComponent } from './share-snippet/share-snippet.component';
 import { ReCaptchaComponent } from './re-captcha/re-captcha.component';
 import { AdminAppComponent } from './admin/admin-app/admin-app.component';
 import { AdminNavigationComponent } from './admin/admin-navigation/admin-navigation.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AdminNavigationComponent } from './admin/admin-navigation/admin-navigat
     ShareSnippetComponent,
     ReCaptchaComponent,
     AdminAppComponent,
-    AdminNavigationComponent
+    AdminNavigationComponent,
+    AdminDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { AdminNavigationComponent } from './admin/admin-navigation/admin-navigat
     MatDialogModule,
     MatBadgeModule,
     HighlightModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSidenavModule
   ],
   providers: [{
     provide: HIGHLIGHT_OPTIONS,

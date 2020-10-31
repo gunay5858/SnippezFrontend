@@ -1,1 +1,22 @@
-<p>admin-navigation works!</p>
+<mat-nav-list>
+
+  <a mat-list-item [routerLink]="'admincp/dashboard'">
+    <span class="icon-wrapper">
+    <mat-icon fontSet="material-icons-outlined">dashboard</mat-icon>
+      </span>
+    Dashboard
+  </a>
+  <a mat-list-item [routerLink]="'admincp/users'">
+    <span class="icon-wrapper">
+    <mat-icon fontSet="material-icons-outlined">person</mat-icon>
+      </span>
+    Usermanagement
+  </a>
+  <a mat-list-item [routerLink]="'admincp/settings'">
+    <span class="icon-wrapper">
+    <mat-icon fontSet="material-icons-outlined">settings</mat-icon>
+      </span>
+    Einstellungen
+  </a>
+
+</mat-nav-list>
