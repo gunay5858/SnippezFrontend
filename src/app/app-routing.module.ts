@@ -4,18 +4,26 @@ import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {AddSnippetComponent} from "./add-snippet/add-snippet.component";
-import {AdminAppComponent} from "./admin/admin-app/admin-app.component";
 import {AdminDashboardComponent} from "./admin/admin-dashboard/admin-dashboard.component";
-
+import {AdminAppComponent} from "./admin/admin-app/admin-app.component";
+import {AdminUsersComponent} from "./admin/admin-users/admin-users.component";
+import {AdminSettingsComponent} from "./admin/admin-settings/admin-settings.component";
 
 const routes: Routes = [
   {path: 'dashboard', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'snippet/new', component: AddSnippetComponent},
-  {path: 'admincp', component: AdminAppComponent},
-  {path: 'dashboard', component: AdminDashboardComponent, outlet: 'admin'},
-  { path: '',   redirectTo: '/dashboard', pathMatch: 'full' }
+  {
+    path: 'admincp', component: AdminAppComponent, children: [
+      {path: '', pathMatch: 'full', redirectTo: '/admincp/(admin:dashboard)'},
+      {path: 'dashboard', outlet: 'admin', component: AdminDashboardComponent},
+      {path: 'users', outlet: 'admin', component: AdminUsersComponent},
+      {path: 'settings', outlet: 'admin', component: AdminSettingsComponent}
+    ]
+  },
+  // {path: 'dashboard', component: AdminDashboardComponent, outlet: 'admin'},
+  {path: '', redirectTo: '/dashboard', pathMatch: 'full'}
 ];
 
 @NgModule({
