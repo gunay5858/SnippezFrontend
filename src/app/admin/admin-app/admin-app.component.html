@@ -1,11 +1,13 @@
-<mat-grid-list cols="5" rowHeight="100vh">
+<mat-grid-list rowHeight="1:1" cols="5">
   <mat-grid-tile colspan="1">
-    <mat-card>
+    <mat-card class="admin-nav">
       <app-admin-navigation></app-admin-navigation>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile colspan="4">
-    <router-outlet name="admin"></router-outlet>
+    <div class="admin-content">
+      <router-outlet name="admin"></router-outlet>
+    </div>
   </mat-grid-tile>
 </mat-grid-list>
 
